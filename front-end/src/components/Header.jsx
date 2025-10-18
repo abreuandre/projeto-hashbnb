@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className="shadow-md">
+    <header className="shadow-md">
         <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
             <div className="flex items-center">
             <img className="h-10"
@@ -40,7 +40,7 @@ const Header = () => {
                 
             </div>
         </div>
-    </div>
+    </header>
   )
 }
 
