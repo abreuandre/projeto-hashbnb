@@ -1,25 +1,21 @@
-import Acomodacao from "./components/Acomodacao"
 import Header from "./components/Header"
+import Home from "./components/pages/Home";
+import Login from "./components/pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
   return (
-    <>
+    <BrowserRouter>
       <Header />
 
-      <section>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(225px,1fr))] mx-auto max-w-7xl p-8">
-          <Acomodacao />
-          <Acomodacao />
-          <Acomodacao />
-          <Acomodacao />
-          <Acomodacao />
-          <Acomodacao />
-          <Acomodacao />
-        </div>
-      </section>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+       
       
-    </>
+    </BrowserRouter>
   );
   
 }
