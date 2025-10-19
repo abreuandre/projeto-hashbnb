@@ -3,7 +3,7 @@ import React from 'react'
 const Header = () => {
   return (
     <header className="shadow-md">
-        <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-8">
             <div className="flex items-center">
             <img className="h-10"
             src="https://cdn.prod.website-files.com/61b9e0dd381626819c8d4f83/65e2198d48039ba6444f602b_logo%20hashtag%20-%20h.webp" alt="Logo da Hashtag" />
@@ -11,7 +11,7 @@ const Header = () => {
 
             </div>
 
-            <div className="flex items-center rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md">
+            <div className="hidden lg:flex items-center rounded-full border border-gray-300 py-2 pr-4 pl-6 shadow-md">
                 <p className="border-r border-r-gray-300 pr-4">Qualquer lugar</p>
                 <p className="border-r border-r-gray-300 px-4">Qualquer semana</p>
                 <p className="px-4">Hóspedes</p>
@@ -35,7 +35,7 @@ const Header = () => {
                  <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
                 </svg>
 
-                <p>André Abreu</p>
+                <p className="max-w-20 truncate sm:max-w-32">André Abreu</p>
 
                 
             </div>
