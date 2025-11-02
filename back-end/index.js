@@ -1,13 +1,17 @@
 import "dotenv/config";
 import express from "express";
+import { connectDb } from "./config/db.js";
+import User from "./models/User.js";
 
 const app = express();
 const { PORT } = process.env;
 
-//mongodb+srv://andreluismachadoabreu_db_user:9kBHyJqmxkbSbOlQ@cluster0.muoh6jk.mongodb.net/hashbnb?appName=Cluster0
+app.get("/users", async (req, res) => {
+  connectDb();
 
-app.get("/", (req, res) => {
-    res.json({ ola: "Olá, Mundo!" });
+  const userDoc = await User.find();
+
+  res.json(userDoc);
 });
 
 app.listen(PORT, () => {
