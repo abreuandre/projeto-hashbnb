@@ -1,14 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 const Login = () => {
+
+  const [email, setEmail] = useState("teste@gmail.com");
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  console.log(`Enviaram as seguintes informações. E-mail: ${email}`);
+
+ };
+
+
   return (
     <section className="flex items-center">
         <div className="mx-auto flex w-full max-w-96 flex-col items-center gap-4">
           <h1 className="text-3xl font-bold">Faça seu login</h1>
 
-          <form className="flex w-full flex-col gap-2">
-            <input type="email" className="w-full rounded-full border border-gray-300 px-4 py-2" placeholder="Digite seu e-mail"/>
+          <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit}>
+            <input type="email" className="w-full rounded-full border border-gray-300 px-4 py-2" placeholder="Digite seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="password" className="w-full rounded-full border border-gray-300 px-4 py-2" placeholder="Digite sua senha"/>
             <button className="w-full cursor-pointer bg-primary-400 rounded-full border border-gray-300 px-4 py-2 font-bold text-white">Login</button>
           </form>
