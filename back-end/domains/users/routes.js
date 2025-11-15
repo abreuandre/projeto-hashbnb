@@ -40,7 +40,18 @@ router.post("/", async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  connectDb();
 
-})
+  const { email, password } = req.body;
+
+  try {
+    const userDoc = await User.find({ email });
+
+    res.json(userDoc)
+  } catch (error) {
+    res.status(500).json(error);
+  }
+  
+});
 
 export default router;
