@@ -1,17 +1,36 @@
-import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from "axios";
 
-const Login = () => {
+const Login = ({ user, setUser }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
 
-  console.log(`Enviaram as seguintes informações. E-mail: ${email}. Senha: ${password}`);
+  if (email && password) {
+    try {
+      const { data: userDoc } = await axios.post("/users/login", {
+    email,
+    password,
+      });
 
+      setUser(userDoc);
+      setRedirect(true);
+
+      console.log(userDoc);
+    } catch (error) {
+      alert(`Deu um erro ao logar: ${error.response.data}`);
+    }
+  } else {
+    alert("Você precisa preencher o e-mail e a senha!");
+  }  
  };
+
+ if (redirect || user) return <Navigate to="/" />;
 
 
   return (
