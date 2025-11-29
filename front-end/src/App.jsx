@@ -7,6 +7,7 @@ import { useState } from "react";
 import Register from "./components/pages/Register";
 
 axios.defaults.baseURL = import.meta.env.VITE_AXIOS_BASE_URL;
+axios.defaults.withCredentials = true;
 console.log(import.meta.env)
 
 function App() {

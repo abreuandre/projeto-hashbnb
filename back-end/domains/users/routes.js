@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
 
       console.log({ token, JWT_SECRET_KEY });
 
-      res.cookie(token).json(newUserObj);
+      res.cookie("token", token).json(newUserObj);
 
     } else {
       res.status(400).json("Senha inválida!");
