@@ -12,28 +12,29 @@ const Register = ({ setUser }) => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  //if (email && password) {
-  //  try {
-  //    const { data: userDoc } = await axios.post("/users/login", {
-  //  email,
-  //  password,
-  //    });
+  if (email && password && name) {
+   try {
+     const { data: userDoc } = await axios.post("/users", {
+      name,
+      email,
+      password,
+     });
 
-   //   setUser(userDoc);
-  //    setRedirect(true);
+     setUser(userDoc);
+     setRedirect(true);
 
-  //    console.log(userDoc);
-  //  } catch (error) {
-  //    alert(`Deu um erro ao logar: ${error.response.data}`);
-  //  }
- // } else {
-  //  alert("Você precisa preencher o e-mail e a senha!");
-  //}  
+     console.log(userDoc);
+   } catch (error) {
+     alert(`Deu um erro ao cadastrar o usuário: ${JSON.stringify(error)}`);
+   }
+ } else {
+   alert("Você precisa preencher o e-mail, o nome e a senha!");
+  }  
  };
 
  if (redirect) return <Navigate to="/" />;
 
-
+ 
   return (
     <section className="flex items-center">
         <div className="mx-auto flex w-full max-w-96 flex-col items-center gap-4">

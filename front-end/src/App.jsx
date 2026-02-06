@@ -14,11 +14,15 @@ console.log(import.meta.env)
 function App() {
   const [user, setUser] = useState(null);
 
-  useEffect{() => {
-    const axiosGet = async () => {};
+  useEffect(() => {
+    const axiosGet = async () => {
+      const { data } = await axios.get("/users/profile");
+
+      setUser(data);
+    };
 
     axiosGet();
-  },  []};
+  },  []);
 
   return (
     <BrowserRouter>

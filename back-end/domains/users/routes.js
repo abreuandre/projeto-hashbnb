@@ -22,6 +22,22 @@ try {
 }
 });
 
+router.get("/profile", async (req, res) => {
+  const { token } = req.cookies;
+
+if (token) {
+  try {
+  const userInfo = jwt.verify(token, JWT_SECRET_KEY);
+
+  res.json(userInfo);
+} catch (error) {
+  res.status(500).json(error);
+}
+} else {
+  res.json(null);
+}
+});
+
 router.post("/", async (req, res) => {
   connectDb();
 
