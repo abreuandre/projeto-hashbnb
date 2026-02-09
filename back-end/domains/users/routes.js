@@ -52,7 +52,14 @@ router.post("/", async (req, res) => {
     password: encryptedPassword,
   });
 
-  res.json(newUserDoc);
+  const { _id } = newUserDoc;
+  const newUserObj = { name, email, _id};
+
+  const token = jwt.sign(newUserObj, JWT_SECRET_KEY);
+
+      console.log({ token, JWT_SECRET_KEY });
+
+      res.cookie("token", token).json(newUserObj);
  } catch (error) {
    res.status(500).json(error);
  }

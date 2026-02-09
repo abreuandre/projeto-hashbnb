@@ -13,7 +13,7 @@ const Login = ({ user, setUser }) => {
 
   if (email && password) {
     try {
-      const { data: userDoc } = await axios.post("/users/login", {
+      const { data: userDoc } = await axios.post("/users", {
     email,
     password,
       });
