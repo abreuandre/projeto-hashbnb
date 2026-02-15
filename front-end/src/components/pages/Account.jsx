@@ -2,8 +2,8 @@ import React from 'react'
 
 const Account = () => {
   return (
-    <section>
-        <div>
+    <section className="p-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4">
             <div>
                <button>Perfil</button>
                <button>Reservas</button>
