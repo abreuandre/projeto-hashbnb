@@ -1,5 +1,5 @@
 import React from 'react'
-import Acomodacao from '../Acomodacao'
+import Acomodacao from '../components/Acomodacao'
 
 const Home = () => {
   return (
