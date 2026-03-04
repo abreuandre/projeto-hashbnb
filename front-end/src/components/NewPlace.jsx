@@ -1,11 +1,16 @@
 import { useState } from 'react'
+import Perks from './Perks';
 
 const NewPlace = () => {
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
   const [photos, setPhotos] = useState("");
   const [description, setDescription] = useState("");
-  const [perks, setPerks] = useState([]);
+  const [extras, setExtras] = useState("");
+  const [price, setPrice] = useState("");
+  const [checkin, setCheckin] = useState("");
+  const [checkout, setCheckout] = useState("");
+  const [guests, setGuests] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,113 +82,75 @@ const NewPlace = () => {
         <div className="flex flex-col gap-1">
             <label htmlFor="perks" className="ml-2 text-2xl font-bold">Comodidades</label>
 
-          <div>
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-
-            <label htmlFor="wifi" className="flex gap-2 items-center rounded-xl border border-gray-300 px-4 py-3">
-              <input
-                type="checkbox"
-                id="wifi"
-                value={wifi}
-                onChange={(e) => 
-                  setPerks((prevValue) => [...prevValue, e.target.value])
-                }
-              />
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-              </svg>
-              Wifi
-            </label>
-          </div>
+            <Perks/>
         </div>
+
+        <div className="flex flex-col gap-1">
+            <label htmlFor="extras" className="ml-2 text-2xl font-bold">Informações Extras</label>
+            <textarea
+                placeholder="Digite a descrição do seu anúncio"
+                className="rounded-2xl border border-gray-300 px-4 py-2 h-56 resize-none"
+                id="extras"
+                value={extras}
+                onChange={(e) => setExtras(e.target.value)}
+            />
+        </div>
+
+        <div className="flex flex-col gap-1">
+            <h2 className="ml-2 text-2xl font-bold">Restrições e Preço</h2>
+
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(225px,1fr))] gap-6">
+              <div className="flex flex-col gap-2">
+                <label className="ml-2 text-xl font-bold" htmlFor="price">Preço</label>
+                <input
+                type="number"
+                placeholder="500"
+                className="rounded-full border border-gray-300 px-4 py-2"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="ml-2 text-xl font-bold" htmlFor="checkin">Checkin</label>
+                <input
+                type="text"
+                placeholder="16:00"
+                className="rounded-full border border-gray-300 px-4 py-2"
+                id="checkin"
+                value={checkin}
+                onChange={(e) => setCheckin(e.target.value)}
+              />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="ml-2 text-xl font-bold" htmlFor="checkout">Checkout</label>
+                <input
+                type="text"
+                placeholder="12:00"
+                className="rounded-full border border-gray-300 px-4 py-2"
+                id="checkout"
+                value={checkout}
+                onChange={(e) => setCheckout(e.target.value)}
+              />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="ml-2 text-xl font-bold" htmlFor="guests">Nº convidados</label>
+                <input
+                type="number"
+                placeholder="4"
+                className="rounded-full border border-gray-300 px-4 py-2"
+                id="guests"
+                value={guests}
+                onChange={(e) => setGuests(e.target.value)}
+              />
+              </div>
+            </div>
+        </div>
+
+        <button className="hover:bg-primary-500 bg-primary-400 min-w-44 cursor-pointer rounded-full px-4 py-2 text-white transition">Salvar informações</button>
     </form>
   )
 }
