@@ -30,9 +30,10 @@ export const JWTSign = (newUserObj) => {
       { expiresIn: "1d" },
       (error, token) => {
         if (error) {
-          console.error("Deu algum erro ao assinar com o JWT:", error);
+          console.error("Deu algum erro ao ssinar com o JWT:", error);
           reject(error);
         }
+
         resolve(token);
       },
     );

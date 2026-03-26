@@ -74,10 +74,7 @@ router.post("/login", async (req, res) => {
         try {
           const token = await JWTSign(newUserObj);
 
-          console.log(token);
-          res.json("Respondido");
-
-          // res.cookie("token", token).json(newUserObj);
+          res.cookie("token", token).json(newUserObj);
         } catch (error) {
           console.error(error);
           res.status(500).json("Erro ao assinar com o JWT");

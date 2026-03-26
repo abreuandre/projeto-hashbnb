@@ -14,6 +14,11 @@ const NewPlace = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //const newPlace = await axios.post('/places', {
+
+    //})
+
   }
 
   return (
