@@ -45,13 +45,11 @@ router.post("/", async (req, res) => {
     const newUserObj = { name, email, _id };
 
     try {
-
       const token = await JWTSign(newUserObj);
 
       res.cookie("token", token).json(newUserObj);
     } catch (error) {
       res.status(500).json("Erro ao assinar com o JWT", error);
-
     }
   } catch (error) {
     res.status(500).json(error);
@@ -76,9 +74,9 @@ router.post("/login", async (req, res) => {
         try {
           const token = await JWTSign(newUserObj);
 
-          res.cookie("token", token).json(newUserObj);   
+          res.cookie("token", token).json(newUserObj);
         } catch (error) {
-          console.error(error)
+          console.error(error);
           res.status(500).json("Erro ao assinar com o JWT");
         }
       } else {
