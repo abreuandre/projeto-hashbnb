@@ -2,6 +2,8 @@ import { Router } from "express";
 import Place from "./models.js";
 import { JWTVerify } from "../../utils/jwt.js";
 import { connectDb } from "../../config/db.js";
+import { downloadImage } from "../../utils/imageDownloader.js";
+import { __dirname } from "../../index.js";
 
 const router = Router();
 
@@ -45,5 +47,10 @@ try {
 }
 });
 
+router.post("/upload/link", async (req, res) => {
+  const { link } = req.body;
+
+  await downloadImage(link, `${__dirname}/tmp/`);
+});
 
 export default router;
