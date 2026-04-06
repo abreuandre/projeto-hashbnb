@@ -1,8 +1,7 @@
 import express from "express";
-import UserRoutes from "./domains/users/routes.js";
-import PlaceRoutes from "./domains/Places/routes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import routes from "./routes/index.js";
 
 export const app = express();
 
@@ -14,5 +13,4 @@ app.use(
     credentials: true,
   }),
 );
-app.use("/users", UserRoutes);
-app.use("/places", PlaceRoutes);
+app.use(routes);
