@@ -13,14 +13,21 @@ const client = new S3Client({
     }, 
 });
 
-export const sentToS3 = (filename, path) => {
-
+export const sentToS3 = async (filename, path, mimetype) => {
     const command = new PutObjectCommand({
     Bucket: BUCKET,
     Key: filename,
-    Body: path,
-    ContentType: "",
+    Body: fs.readFileSync(path),
+    ContentType: mimetype,
     ACL: "public-read",
     });
-}
+
+    try {
+      await client.send(command);
+
+      return `https://${BUCKET}.s3.us-east-2.amazonaws.com/${filename}`;
+    } catch (error) {
+        throw error;
+    }
+};
 
