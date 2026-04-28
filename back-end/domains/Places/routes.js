@@ -52,6 +52,9 @@ router.post("/upload/link", async (req, res) => {
 
   try {
     const filename = await downloadImage(link, `${__dirname}/tmp/`);
+    //Após fazer a configuração da AWS então configurar as chaves abaixo no arquivo .env. Não esquecer de ver o vídeo da aula 10.
+    // S3_ACCESS_KEY= aqui digitamos a chave.
+    // S3_SECRET_KEY= aqui é uma outra chave.
 
     res.json(filename);
   } catch (error) {
