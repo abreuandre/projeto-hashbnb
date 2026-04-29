@@ -37,7 +37,7 @@ const PhotoUploader = ({photolink, setPhotoLink, setPhotos, photos}) => {
                 {photos.map((photo) => (
                     <img 
                         className="aspect-square object-cover rounded-2xl"
-                        src={`${axios.defaults.baseURL}/tmp/${photo}`}
+                        src={`${photo}`}
                         alt="Imagens do Lugar"
                         key={photo}/>
                 ))};

@@ -4,6 +4,7 @@ import { JWTVerify } from "../../utils/jwt.js";
 import { connectDb } from "../../config/db.js";
 import { downloadImage } from "../../utils/imageDownloader.js";
 import { __dirname } from "../../server.js";
+import { sendToS3 } from "./controller.js";
 
 const router = Router();
 
@@ -64,8 +65,11 @@ router.post("/upload/link", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json("Deu erro ao baixar a imagem");
-  }
-  
+  } 
+});
+
+router.post("/upload", async (req, res) => {
+
 });
 
 export default router;
