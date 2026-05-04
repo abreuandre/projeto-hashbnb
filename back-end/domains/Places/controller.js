@@ -4,9 +4,18 @@ import fs from "fs";
 import download from 'image-downloader';
 import mime from "mime-types";
 import multer from "multer";
+import { __dirname } from "../../server.js";
 
 const { S3_ACCESS_KEY, S3_SECRET_KEY, BUCKET } = process.env;
 //BUCKET = hashbnb - youtube; - coloque essa informação no arquivo .env ou process.env
+
+const getExtension = (path) => {
+    const mimeType = mime.lookup(path);
+    const contentType = mime.contentType(mimeType);
+    const extension = mime.extension(contentType);
+
+    return extension;
+}
 
 export const sentToS3 = async (filename, path, mimetype) => {
     const client = new S3Client({ 
@@ -35,10 +44,9 @@ export const sentToS3 = async (filename, path, mimetype) => {
 };
 
 
-export const downloadImage = async (link, destination) => {
-    const mimeType = mime.lookup(link);
-    const contentType = mime.contentType(mimeType);
-    const extension = mime.extension(contentType);
+export const downloadImage = async (link) => {
+    const extension = getExtension(link);
+    const destination = `${__dirname}/tmp/`;
 
 
     const filename = `${Date.now()}.${extension}`;
@@ -67,11 +75,13 @@ export const downloadImage = async (link, destination) => {
 export const uploadImage = () =>  {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, "/tmp/my-uploads");
+            cb(null, `${__dirname}/tmp/`);
         },
+
         filename: function (req, file, cb) {
-            const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-            cb(null, file.fieldname + "-" + uniqueSuffix);
+            const extension = getExtension(file.originalname);
+
+            cb(null, `${Date.now()}.${extension}`);
         },
     });
 

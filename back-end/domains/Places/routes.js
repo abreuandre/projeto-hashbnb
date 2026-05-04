@@ -2,7 +2,6 @@ import { Router } from "express";
 import Place from "./models.js";
 import { JWTVerify } from "../../utils/jwt.js";
 import { connectDb } from "../../config/db.js";
-import { __dirname } from "../../server.js";
 import { sendToS3, downloadImage, uploadImage } from "./controller.js";
 
 const router = Router();
@@ -49,10 +48,9 @@ try {
 
 router.post("/upload/link", async (req, res) => {
   const { link } = req.body;
-  const path = `${__dirname}/tmp/`
 
   try {
-    const { filename, fullPath, mimeType } = await downloadImage(link, path);
+    const { filename, fullPath, mimeType } = await downloadImage(link);
     //Após fazer a configuração da AWS então configurar as chaves abaixo no arquivo .env. Não esquecer de ver o vídeo da aula 10.
     // S3_ACCESS_KEY= aqui digitamos a chave.
     // S3_SECRET_KEY= aqui é uma outra chave.
