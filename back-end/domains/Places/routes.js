@@ -2,7 +2,7 @@ import { Router } from "express";
 import Place from "./models.js";
 import { JWTVerify } from "../../utils/jwt.js";
 import { connectDb } from "../../config/db.js";
-import { sendToS3, downloadImage, uploadImage } from "./controller.js";
+import { downloadImage, uploadImage } from "./controller.js";
 
 const router = Router();
 
@@ -57,7 +57,6 @@ router.post("/upload/link", async (req, res) => {
 
     const fileURL = await sendToS3(filename, fullPath, mimeType);
 
-
     res.json(fileURL);
   } catch (error) {
     console.error(error);
@@ -66,9 +65,37 @@ router.post("/upload/link", async (req, res) => {
 });
 
 router.post("/upload", uploadImage().array("files", 10), async (req, res) => {
-  req.files.forEach((file) => console.log(file));
+  const {files} = req;
 
-  res.json('Deu certo!');
+  const filesPromise = new Promise((resolve, reject) => {
+    const fileURLArray = [];
+
+    files.forEach(async (file, index) => {
+      const { filename, path, mimetype } = file;
+
+      try {
+        const fileURL = await sendToS3(filename, path, mimetype);
+
+        if (fileURL) {
+          fileURLArray.push(fileURL);
+          console.log({ fileURLArray });
+        
+
+          if (index === files.length - 1) {
+            console.log(`Antes do Resolve: ${fileURLArray}`);
+            resolve(fileURLArray);
+          }
+        }
+      } catch (error) {
+        console.error("Deu algum erro ao subir para o S3", error);
+        reject(error);
+      }
+    });
+  });
+  
+  const fileURLArrayResolved = await filesPromise;
+
+  res.json(fileURLArrayResolved);
 });
 
 export default router;
