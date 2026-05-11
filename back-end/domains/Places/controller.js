@@ -80,8 +80,9 @@ export const uploadImage = () =>  {
 
         filename: function (req, file, cb) {
             const extension = getExtension(file.originalname);
+            const uniqueSuffix = Math.round(Math.random() * 1e9);
 
-            cb(null, `${Date.now()}.${extension}`);
+            cb(null, `${Date.now()}-${uniqueSuffix}.${extension}`);
         },
     });
 

@@ -76,21 +76,21 @@ router.post("/upload", uploadImage().array("files", 10), async (req, res) => {
       try {
         const fileURL = await sendToS3(filename, path, mimetype);
 
-        if (fileURL) {
-          fileURLArray.push(fileURL);
-          console.log({ fileURLArray });
-        
-
-          if (index === files.length - 1) {
-            console.log(`Antes do Resolve: ${fileURLArray}`);
-            resolve(fileURLArray);
-          }
-        }
+        fileURLArray.push(fileURL);
       } catch (error) {
         console.error("Deu algum erro ao subir para o S3", error);
         reject(error);
       }
     });
+    
+    const idInterval = setInterval(() => {
+        console.log("Executou o intervalo!");
+        if (files.length === fileURLArray.length) {
+         clearInterval(idInterval);
+         console.log("Limpou o intervalo!");
+         resolve(fileURLArray);
+        }
+      }, 100);
   });
   
   const fileURLArrayResolved = await filesPromise;
