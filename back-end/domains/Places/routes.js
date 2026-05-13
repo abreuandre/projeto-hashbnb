@@ -8,7 +8,27 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
+    const placeDocs = await Place.find({ owner: _id });
+
+    res.json(placeDocs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Deu erro ao encontrar as Acomodações");
+  }
+});
+
+router.get("/owner", async (req, res) => {
+  try {
     const { _id } = await JWTVerify(req);
+
+    try {
+      const placeDocs = await Place.find({ owner: _id });
+
+      res.json(placeDocs);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("Deu erro ao encontrar as Acomodações");
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json("Deu erro ao verificar o usuário");

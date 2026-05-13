@@ -2,9 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import NewPlace from "./NewPlace";
+import { useEffect } from "react";
+import axios from "axios";
 
 const AccPlaces = () => {
   const { action } = useParams();
+
+  useEffect(() => {
+    const axiosGet = async () => {
+      const { data } = await axios.get("/places/owner");
+      console.log(data);
+    };
+
+    axiosGet();
+  }, []);
 
   return (
     <div className="flex w-full max-w-7xl flex-col items-center">
@@ -30,6 +41,8 @@ const AccPlaces = () => {
             </svg>
             Adicionar novo lugar
           </Link>
+
+          <></>
         </>
       ) : (
         <NewPlace />
