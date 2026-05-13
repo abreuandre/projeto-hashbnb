@@ -6,44 +6,53 @@ import { downloadImage, uploadImage } from "./controller.js";
 
 const router = Router();
 
+router.get("/", async (req, res) => {
+  try {
+    const { _id } = await JWTVerify(req);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Deu erro ao verificar o usuário");
+  }
+});
+
 router.post("/", async (req, res) => {
   connectDb();
 
-const {
-  title,
-  city,
-  photos,
-  description,
-  extras,
-  price,
-  perks,
-  checkin,
-  checkout,
-  guests,
-} = req.body;
-
-try {
-  const { _id: owner } = await JWTVerify(req);
-
-  const newPlaceDoc = await Place.create({
-    owner,
+  const {
     title,
     city,
     photos,
     description,
     extras,
-    perks,
     price,
+    perks,
     checkin,
     checkout,
     guests,
-  });
+  } = req.body;
 
-  res.json(newPlaceDoc)
-} catch (error) {
-  console.error(error);
-  res.status(500).json("Deu erro ao criar o novo lugar");
-}
+  try {
+    const { _id: owner } = await JWTVerify(req);
+
+    const newPlaceDoc = await Place.create({
+      owner,
+      title,
+      city,
+      photos,
+      description,
+      extras,
+      perks,
+      price,
+      checkin,
+      checkout,
+      guests,
+    });
+
+    res.json(newPlaceDoc);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Deu erro ao criar o novo lugar");
+  }
 });
 
 router.post("/upload/link", async (req, res) => {
@@ -61,11 +70,11 @@ router.post("/upload/link", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json("Deu erro ao baixar a imagem");
-  } 
+  }
 });
 
 router.post("/upload", uploadImage().array("files", 10), async (req, res) => {
-  const {files} = req;
+  const { files } = req;
 
   const filesPromise = new Promise((resolve, reject) => {
     const fileURLArray = [];
@@ -82,17 +91,17 @@ router.post("/upload", uploadImage().array("files", 10), async (req, res) => {
         reject(error);
       }
     });
-    
+
     const idInterval = setInterval(() => {
-        console.log("Executou o intervalo!");
-        if (files.length === fileURLArray.length) {
-         clearInterval(idInterval);
-         console.log("Limpou o intervalo!");
-         resolve(fileURLArray);
-        }
-      }, 100);
+      console.log("Executou o intervalo!");
+      if (files.length === fileURLArray.length) {
+        clearInterval(idInterval);
+        console.log("Limpou o intervalo!");
+        resolve(fileURLArray);
+      }
+    }, 100);
   });
-  
+
   const fileURLArrayResolved = await filesPromise;
 
   res.json(fileURLArrayResolved);

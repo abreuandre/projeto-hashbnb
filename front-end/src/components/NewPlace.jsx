@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import Perks from './Perks';
+import { useState } from "react";
+import Perks from "./Perks";
 import axios from "axios";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 import { useUserContext } from "../contexts/UserContext.jsx";
-import PhotoUploader from './PhotoUploader.jsx';
+import PhotoUploader from "./PhotoUploader.jsx";
 
 const NewPlace = () => {
   const { user } = useUserContext();
@@ -23,10 +23,10 @@ const NewPlace = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //photos.length > 0 &&
     if (
       title &&
       city &&
+      photos.length > 0 &&
       description &&
       extras &&
       price &&
@@ -34,8 +34,8 @@ const NewPlace = () => {
       checkout &&
       guests
     ) {
-       try {
-        const newPlace = await axios.post('/places', {
+      try {
+        const newPlace = await axios.post("/places", {
           owner: user._id,
           title,
           city,
@@ -52,130 +52,150 @@ const NewPlace = () => {
         console.log(newPlace);
 
         setRedirect(true);
-       } catch (error) {
-          console.error(JSON.stringify(error));
-          alert("Deu erro ao tentar criar um novo luar");
-       }
-    } else{
+      } catch (error) {
+        console.error(JSON.stringify(error));
+        alert("Deu erro ao tentar criar um novo luar");
+      }
+    } else {
       alert("Preencha todas as informações antes de enviar");
     }
   };
 
-  if (redirect) return <Navigate to="/account/places"/>;
+  if (redirect) return <Navigate to="/account/places" />;
 
   return (
-    <form onSubmit={handleSubmit} className="w-full px-8 flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-            <label htmlFor="title" className="ml-2 text-2xl font-bold">Título</label>
+    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6 px-8">
+      <div className="flex flex-col gap-1">
+        <label htmlFor="title" className="ml-2 text-2xl font-bold">
+          Título
+        </label>
+        <input
+          type="text"
+          placeholder="Digite o título do seu anúncio"
+          className="rounded-full border border-gray-300 px-4 py-2"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="city" className="ml-2 text-2xl font-bold">
+          Cidade e País
+        </label>
+        <input
+          type="text"
+          placeholder="Digite a cidade e o país do seu anúncio"
+          className="rounded-full border border-gray-300 px-4 py-2"
+          id="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+      </div>
+
+      <PhotoUploader {...{ photolink, setPhotoLink, setPhotos, photos }} />
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="description" className="ml-2 text-2xl font-bold">
+          Descrição
+        </label>
+        <textarea
+          placeholder="Digite a descrição do seu anúncio"
+          className="h-56 resize-none rounded-2xl border border-gray-300 px-4 py-2"
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="perks" className="ml-2 text-2xl font-bold">
+          Comodidades
+        </label>
+
+        <Perks {...{ perks, setPerks }} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="extras" className="ml-2 text-2xl font-bold">
+          Informações Extras
+        </label>
+        <textarea
+          placeholder="Digite a descrição do seu anúncio"
+          className="h-56 resize-none rounded-2xl border border-gray-300 px-4 py-2"
+          id="extras"
+          value={extras}
+          onChange={(e) => setExtras(e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <h2 className="ml-2 text-2xl font-bold">Restrições e Preço</h2>
+
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(225px,1fr))] gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="ml-2 text-xl font-bold" htmlFor="price">
+              Preço
+            </label>
             <input
-                type="text"
-                placeholder="Digite o título do seu anúncio"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+              type="number"
+              placeholder="500"
+              className="rounded-full border border-gray-300 px-4 py-2"
+              id="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
-        </div>
+          </div>
 
-        <div className="flex flex-col gap-1">
-            <label htmlFor="city" className="ml-2 text-2xl font-bold">Cidade e País</label>
+          <div className="flex flex-col gap-2">
+            <label className="ml-2 text-xl font-bold" htmlFor="checkin">
+              Checkin
+            </label>
             <input
-                type="text"
-                placeholder="Digite a cidade e o país do seu anúncio"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+              type="text"
+              placeholder="16:00"
+              className="rounded-full border border-gray-300 px-4 py-2"
+              id="checkin"
+              value={checkin}
+              onChange={(e) => setCheckin(e.target.value)}
             />
-        </div>
-        
-        <PhotoUploader {...{ photolink, setPhotoLink, setPhotos, photos }}/>
+          </div>
 
-        <div className="flex flex-col gap-1">
-            <label htmlFor="description" className="ml-2 text-2xl font-bold">Descrição</label>
-            <textarea
-                placeholder="Digite a descrição do seu anúncio"
-                className="rounded-2xl border border-gray-300 px-4 py-2 h-56 resize-none"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+          <div className="flex flex-col gap-2">
+            <label className="ml-2 text-xl font-bold" htmlFor="checkout">
+              Checkout
+            </label>
+            <input
+              type="text"
+              placeholder="12:00"
+              className="rounded-full border border-gray-300 px-4 py-2"
+              id="checkout"
+              value={checkout}
+              onChange={(e) => setCheckout(e.target.value)}
             />
-        </div>
+          </div>
 
-        <div className="flex flex-col gap-1">
-            <label htmlFor="perks" className="ml-2 text-2xl font-bold">Comodidades</label>
-
-            <Perks {...{ perks, setPerks }} />
-        </div>
-
-        <div className="flex flex-col gap-1">
-            <label htmlFor="extras" className="ml-2 text-2xl font-bold">Informações Extras</label>
-            <textarea
-                placeholder="Digite a descrição do seu anúncio"
-                className="rounded-2xl border border-gray-300 px-4 py-2 h-56 resize-none"
-                id="extras"
-                value={extras}
-                onChange={(e) => setExtras(e.target.value)}
+          <div className="flex flex-col gap-2">
+            <label className="ml-2 text-xl font-bold" htmlFor="guests">
+              Nº convidados
+            </label>
+            <input
+              type="number"
+              placeholder="4"
+              className="rounded-full border border-gray-300 px-4 py-2"
+              id="guests"
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
             />
+          </div>
         </div>
+      </div>
 
-        <div className="flex flex-col gap-1">
-            <h2 className="ml-2 text-2xl font-bold">Restrições e Preço</h2>
-
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(225px,1fr))] gap-6">
-              <div className="flex flex-col gap-2">
-                <label className="ml-2 text-xl font-bold" htmlFor="price">Preço</label>
-                <input
-                type="number"
-                placeholder="500"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="ml-2 text-xl font-bold" htmlFor="checkin">Checkin</label>
-                <input
-                type="text"
-                placeholder="16:00"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="checkin"
-                value={checkin}
-                onChange={(e) => setCheckin(e.target.value)}
-              />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="ml-2 text-xl font-bold" htmlFor="checkout">Checkout</label>
-                <input
-                type="text"
-                placeholder="12:00"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="checkout"
-                value={checkout}
-                onChange={(e) => setCheckout(e.target.value)}
-              />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="ml-2 text-xl font-bold" htmlFor="guests">Nº convidados</label>
-                <input
-                type="number"
-                placeholder="4"
-                className="rounded-full border border-gray-300 px-4 py-2"
-                id="guests"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-              />
-              </div>
-            </div>
-        </div>
-
-        <button className="hover:bg-primary-500 bg-primary-400 min-w-44 cursor-pointer rounded-full px-4 py-2 text-white transition">Salvar informações</button>
+      <button className="hover:bg-primary-500 bg-primary-400 min-w-44 cursor-pointer rounded-full px-4 py-2 text-white transition">
+        Salvar informações
+      </button>
     </form>
-  )
-}
+  );
+};
 
-export default NewPlace
+export default NewPlace;
