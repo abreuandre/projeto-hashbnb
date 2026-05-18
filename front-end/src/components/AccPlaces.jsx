@@ -7,11 +7,12 @@ import axios from "axios";
 
 const AccPlaces = () => {
   const { action } = useParams();
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
     const axiosGet = async () => {
       const { data } = await axios.get("/places/owner");
-      console.log(data);
+      setPlaces(data);
     };
 
     axiosGet();
@@ -42,7 +43,16 @@ const AccPlaces = () => {
             Adicionar novo lugar
           </Link>
 
-          <></>
+          {places.map((place) => (
+            <div>
+              <img src={place.photos[0]} alt="Foto da Acomodação" />
+
+              <div>
+                <p>{place.title}</p>
+                <p>{place.description}</p>
+              </div>
+            </div>
+          ))}
         </>
       ) : (
         <NewPlace />
