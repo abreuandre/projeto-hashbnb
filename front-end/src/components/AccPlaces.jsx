@@ -48,6 +48,7 @@ const AccPlaces = () => {
             <Link
               to={`/account/places/new/${place._id}`}
               className="flex items-center gap-6 rounded-2xl bg-gray-100 p-6"
+              key={place._id}
             >
               <img
                 className="aspect-square max-w-56 rounded-2xl object-center"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Perks from "./Perks";
 import axios from "axios";
 import { Navigate, useParams } from "react-router-dom";
@@ -24,8 +24,19 @@ const NewPlace = () => {
   useEffect(() => {
     if (id) {
       const axiosGet = async () => {
-        const { data } = await axios.get("/places/owner");
-        setPlaces(data);
+        const { data } = await axios.get(`/places/${id}`);
+
+        console.log(data);
+
+        setCity(data.city);
+        setPhotos(data.photos);
+        setPerks(data.perks);
+        setDescription(data.description);
+        setExtras(data.extras);
+        setPrice(data.price);
+        setCheckin(data.checkin);
+        setCheckout(data.checkout);
+        setGuests(data.guests);
       };
 
       axiosGet();
