@@ -39,6 +39,21 @@ router.get("/owner", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  connectDb();
+
+  const { id: _id } = req.params;
+
+  try {
+    const placeDoc = await Place.find({ _id });
+
+    res.json(placeDoc);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Deu erro ao encontrar a Acomodação");
+  }
+});
+
 router.post("/", async (req, res) => {
   connectDb();
 
