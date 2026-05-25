@@ -1,7 +1,7 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 
-const { JWT_SECRET_KEY } = process.env;
+const JWT_SECRET_KEY = "slkdmvoknvosnvosnvsoinviunvisubnvo";
 
 export const JWTVerify = (req) => {
   const { token } = req.cookies;

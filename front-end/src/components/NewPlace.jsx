@@ -57,28 +57,52 @@ const NewPlace = () => {
       checkout &&
       guests
     ) {
-      try {
-        const newPlace = await axios.post("/places", {
-          owner: user._id,
-          title,
-          city,
-          photos,
-          description,
-          extras,
-          perks,
-          price,
-          checkin,
-          checkout,
-          guests,
-        });
 
-        console.log(newPlace);
+      
+        if (id) {
+          try {
+          const modifiedPlace = await axios.put(`/places/${id}`, {
+            title,
+            city,
+            photos,
+            description,
+            extras,
+            perks,
+            price,
+            checkin,
+            checkout,
+            guests,
+          });
+          
+          console.log(modifiedPlace);
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          alert("Deu erro ao tentar atualizar o lugar");
+        }
+      } else {
+        try {
+          const newPlace = await axios.post("/places", {
+            owner: user._id,
+            title,
+            city,
+            photos,
+            description,
+            extras,
+            perks,
+            price,
+            checkin,
+            checkout,
+            guests,
+          });
 
-        setRedirect(true);
-      } catch (error) {
-        console.error(JSON.stringify(error));
-        alert("Deu erro ao tentar criar um novo luar");
-      }
+          console.log(newPlace);
+        } catch (error) {
+          console.error(JSON.stringify(error));
+          alert("Deu erro ao tentar criar um novo lugar");
+        }
+      } 
+
+      setRedirect(true);    
     } else {
       alert("Preencha todas as informações antes de enviar");
     }
