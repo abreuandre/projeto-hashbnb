@@ -11,12 +11,23 @@ const Place = () => {
   const [checkout, setCheckout] = useState("");
   const [guests, setGuests] = useState("");
 
+  const numberOfDays = (date1, date2) => {
+    const date1GMT = date1 + "GMT-03:00";
+    const date2GMT = date2 + "GMT-03:00";
+
+    const dateCheckin = new Date(date1GMT);
+    const dateCheckout = new Date(date2GMT);
+
+    return (
+      (dateCheckout.getTime() - dateCheckin.getTime()) / (1000 * 60 * 60 *24)
+    );
+  };
+
   useEffect(() => {
     if (id) {
       const axiosGet = async () => {
         const { data } = await axios.get(`/places/${id}`);
 
-        console.log(data);
         setPlace(data);
       };
 
@@ -34,8 +45,21 @@ const Place = () => {
     e.preventDefault();
 
     if (checkin && checkout && guests) {
+      const nights = numberOfDays(checkin, checkout);
+      const objBooking = {
+        place: id,
+        user: user.id,
+        price: place.price,
+        total: place.price * nights,
+        checkin,
+        checkout,
+        guests,
+        nights,
+      };
 
-      console.log("Fez uma reserva!");
+      const { data } = await axios.post("/bookings", objBooking);
+      
+      console.log(data);
     } else {
         alert("Preencha todas as informações antes de fazer uma reserva!")
     }  
@@ -71,6 +95,7 @@ const Place = () => {
                   src={photo} 
                   alt="Imagem da Acomodação"
                   onClick={() => setOverlay(true)}
+                  key={photo}
                 />
               ))}
                                          
@@ -98,7 +123,7 @@ const Place = () => {
 
                   <div className="flex flex-col gap-1">
                     {place.perks.map((perk) => (
-                      <div className="flex items-conter gap-2">
+                      <div key={perk} className="flex items-conter gap-2">
                         <Perk perk={perk}></Perk>
                       </div>
                     ))}
@@ -202,6 +227,7 @@ const Place = () => {
                       className= {`aspect-square w-full object-cover`}
                       src={photo} 
                       alt="Imagem da Acomodação"
+                      key={photo}
                   />
                 ))}
                 </div>
