@@ -41,7 +41,7 @@ const Place = () => {
       : document.body.classList.remove("overflow-hidden");
   }, [overlay]);
 
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
 
     if (checkin && checkout && guests) {

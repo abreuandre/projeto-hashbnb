@@ -7,14 +7,14 @@ const router = Router();
 router.post("/", async (req, res) => {
     connectDb();
     
-    const { place, user, proce, total, checkin, checkout, guests, nights } =
+    const { place, user, price, total, checkin, checkout, guests, nights } =
         req.body;
     
     try {
         const newBookingDoc = await Booking.create({
             place,
             user,
-            proce,
+            price,
             total,
             checkin,
             checkout,
