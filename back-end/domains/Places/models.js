@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 const placeSchema = new Schema({
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   title: String,
   city: String,
   photos: [String],
