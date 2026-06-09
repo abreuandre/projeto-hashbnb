@@ -18,7 +18,7 @@ app.use(
     credentials: true,
   }),
 );
-app.use("/tmp", express.static( __dirname + "/tmp"));
+app.use("/tmp", express.static(__dirname + "/tmp"));
 app.use(express.static(path.join(__dirname, "../front-end/dist")));
 app.use("/api", routes);
 
