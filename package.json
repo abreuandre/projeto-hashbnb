@@ -49,7 +49,7 @@
     "build": "npm install --prefix back-end && npm install --prefix front-end && npm run build --prefix front-end"
   },
   "repository": {
-    "type": "git",
+    "type": "module",
     "url": "git+https://github.com/abreuandre/projeto-hashbnb.git"
   },
   "keywords": [],
